@@ -7,6 +7,14 @@ import CreateOrganizationService from '../services/CreateOrganizationService';
 const organizationsRouter = Router();
 const organizationRepository = new OrganizationRepository();
 
+// LIST THE ORGANIZATIONS
+organizationsRouter.get('/', (request, response) => {
+  const organizations = organizationRepository.all();
+
+  return response.json(organizations);
+});
+
+// CREATE AN ORGANIZATION
 organizationsRouter.post('/', (request, response) => {
   try {
     const {
@@ -30,7 +38,7 @@ organizationsRouter.post('/', (request, response) => {
       city,
       cnpj,
       description,
-      foundationDate,
+      foundationDate: parsedDate,
       name,
       responsable,
     });
