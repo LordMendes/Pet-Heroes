@@ -1,6 +1,6 @@
 import Organization from '../models/Organization';
 
-interface CreateAppointmentDTO {
+interface CreateOrganizationDTO {
   address: string;
   city: string;
   cnpj: string;
@@ -30,7 +30,7 @@ class OrganizationRepository {
     foundationDate,
     name,
     responsable,
-  }: CreateAppointmentDTO): Organization {
+  }: CreateOrganizationDTO): Organization {
     const organization = new Organization({
       address,
       city,

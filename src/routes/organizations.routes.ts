@@ -3,6 +3,7 @@ import { parseISO } from 'date-fns';
 
 import OrganizationRepository from '../repositories/OrganizationRepository';
 import CreateOrganizationService from '../services/CreateOrganizationService';
+import UpdateOrganizationService from '../services/UpdateOrganizationService';
 
 const organizationsRouter = Router();
 const organizationRepository = new OrganizationRepository();
@@ -47,6 +48,35 @@ organizationsRouter.post('/', (request, response) => {
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
+});
+
+// UPDATE A ORGANIZAITON
+organizationsRouter.put('/:id', (request, response) => {
+  const updateOrganizationService = new UpdateOrganizationService(
+    organizationRepository,
+  );
+  const { id } = request.params;
+  const {
+    address,
+    city,
+    cnpj,
+    description,
+    foundationDate,
+    name,
+    responsable,
+  } = request.body;
+  console.log(id);
+  const organization = updateOrganizationService.execute(id, {
+    address,
+    city,
+    cnpj,
+    description,
+    foundationDate,
+    name,
+    responsable,
+  });
+
+  return response.status(200).json(organization);
 });
 
 export default organizationsRouter;
